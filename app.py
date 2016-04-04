@@ -27,8 +27,8 @@ def home():
     return render_template('index.html')
 
 @app.route('/all_users')
-deg all_users():
-	all= Users.query.all()
+def all_users():
+	all= User.query.all()
 	return all
 
 @app.route('/robots.txt')
