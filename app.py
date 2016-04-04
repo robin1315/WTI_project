@@ -27,13 +27,9 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/robots.txt')
+@app.route('/hello')
 def robots():
-    all = User.query.all()
-
-    res = app.make_response('Hello WORLD!')
-    res.mimetype = 'text/plain'
-    return res
+	return 'Hello WORLD!'
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
