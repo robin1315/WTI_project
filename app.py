@@ -3,11 +3,11 @@ import os
 from flask import Flask
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
-#from models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,14 +26,12 @@ class User(db.Model):
 def home():
     return render_template('index.html')
 
-@app.route('/all_users')
-def all_users():
-	all= User.query.all()
-	return all
 
 @app.route('/robots.txt')
 def robots():
-    res = app.make_response('User-agent: *\nAllow: /')
+    all = User.query.all()
+
+    res = app.make_response(print(all(User)))
     res.mimetype = 'text/plain'
     return res
 
