@@ -31,7 +31,7 @@ def home():
 def robots():
     all = User.query.all()
 
-    res = app.make_response(print(all(User)))
+    res = app.make_response('Hello WORLD!')
     res.mimetype = 'text/plain'
     return res
 
