@@ -137,6 +137,14 @@ def add_park():
         # from app import Park
         # db.session.add(newpark)
         # db.session.commit()
+        db.session.add(Park(
+            name,
+            street,
+            street_nr,
+            city
+        ))
+        return 'ok'
+        db.session.commit()
         resp = Response(json.dumps(newpark.as_dict()), status=200, mimetype='application/json')
         resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
 
