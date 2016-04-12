@@ -29,11 +29,13 @@ class User(db.Model):
     def __repr__(self):
         return '<Name %r %r> Email %r' % self.name, self.surname, self.email
 
+
 class Cars(db.Model):
     idcar = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nrrej = db.Column(db.String(9))
-    iduser = db.Column(db.Integer)      # dopisac foreign key User id
+    iduser = db.Column(db.Integer)  # dopisac foreign key User id
     mark = db.Column(db.String(20))
+
 
 class Park(db.Model):
     idpark = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -42,21 +44,19 @@ class Park(db.Model):
     street_nr = db.Column(db.Integer)
     city = db.Column(db.String(20))
 
-
     def __init__(self, name, str, str_nr, ci):
         self.name = name
         self.street = str
         self.street_nr = str_nr
         self.city = ci
 
-
     def as_dict(self):
         obc_dict = {
-            'ID':self.idpark,
-            'Nazwa':self.name,
-            'Ulica':self.street,
-            'Nr_ulicy':self.street_nr,
-            'Miasto':self.city
+            'ID': self.idpark,
+            'Nazwa': self.name,
+            'Ulica': self.street,
+            'Nr_ulicy': self.street_nr,
+            'Miasto': self.city
         }
         return obc_dict
 
@@ -102,11 +102,11 @@ def parks():
     # result = [park.as_dict() for park in parks]
     return resp
 
+
 @app.route('/parks/<int:parkid>', methods=['GET', 'POST', 'DELETE'])
 def park_id(parkid):
-
     if request.method == 'GET':
-        us = db.session.query(Park).filter_by(idpark = parkid).first()
+        us = db.session.query(Park).filter_by(idpark=parkid).first()
 
         if us == None:
             return not_found()
@@ -121,6 +121,27 @@ def park_id(parkid):
     else:
         return not_found()
 
+
+@app.route('/parks/add', methods=['POST'])
+def add_park():
+    if request.method == 'POST':
+        name = request.args.get('name')
+        city = request.args.get('city')
+        street = request.args.get('street')
+        street_nr = request.args.get('street_nr')
+
+        newpark = Park(name, street, street_nr, city)
+
+        if newpark != None:
+            db.session.add(newpark)
+            db.session.commit()
+
+        return 'Add new Park'
+    else:
+
+        return 'Something is wrong'
+
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -130,6 +151,7 @@ def not_found(error=None):
     resp = jsonify(message)
     resp.status_code = 404
     return resp
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
