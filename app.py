@@ -94,7 +94,7 @@ def parks():
 
     parkss = Park.query.all()
     result = [park.as_dict() for park in parks]
-    return jsonify({count: len(result), results: result})
+    return result
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
