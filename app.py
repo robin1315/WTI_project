@@ -135,12 +135,13 @@ def add_park():
         # #return 'ok'
         # #if newpark != None:
         # from app import Park
+        from app import db
         try:
             db.session.add(newpark)
             db.session.commit()
         except Exception as e:
             app.logger.error(e.message)
-            
+
         resp = Response(json.dumps(newpark.as_dict()), status=200, mimetype='application/json')
         resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
 
