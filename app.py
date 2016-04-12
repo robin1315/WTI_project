@@ -141,6 +141,7 @@ def add_park():
         #flash('New entry was successfully posted')
 
         try:
+            db.create_all()
             db.session.add(Park(name, street, street_nr, city))
             #g.db.commit()
             db.session.commit()
