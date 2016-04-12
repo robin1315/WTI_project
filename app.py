@@ -141,13 +141,13 @@ def add_park():
         #flash('New entry was successfully posted')
 
         try:
-            
+
             db.create_all()
             db.session.add(Park(name, street, street_nr, city))
             #g.db.commit()
             db.session.commit()
         except Exception as e:
-            app.logger.error(e.message)
+            return e.message
 
         resp = Response(json.dumps(newpark.as_dict()), status=200, mimetype='application/json')
         resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
