@@ -90,12 +90,19 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/parks')
+@app.route('/parks', methods=['GET'])
 def parks():
-
     parkss = Park.query.all()
-    result = [park.as_dict() for park in parks]
-    return Response(json.dumps(result),  mimetype='application/json')
+    data = {
+        'hello':'world',
+        'number':3
+    }
+    js = json.dumps(data)
+    resp = Response(js, status=200, mimetype='application/json')
+    resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+
+    # result = [park.as_dict() for park in parks]
+    return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
