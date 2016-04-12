@@ -10,11 +10,63 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 
-
+db.create_all()
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+@app.route('/users', methods=['GET'])
+def users():
+    userss = User.query.all()
+
+    list = [user.as_dict() for user in userss]
+    js = json.dumps(list)
+    resp = Response(js, status=200, mimetype='application/json')
+    resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+    return resp
+
+
+@app.route('/users/<int:userid>', methods=['GET', 'POST', 'DELETE'])
+def user_id(userid):
+    if request.method == 'GET':
+        us = db.session.query(User).filter_by(id=userid).first()
+
+        if us == None:
+            return not_found()
+        else:
+            resp = Response(json.dumps(us.as_dict()), status=200, mimetype='application/json')
+            resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+            return resp
+    if request.method == 'POST':
+        return 'POST'
+    if request.method == 'DELETE':
+        return 'DELETE'
+    else:
+        return not_found()
+
+
+@app.route('/users/add', methods=['POST'])
+def add_user():
+    if request.method == 'POST':
+        login = request.args.get('login')
+        name = request.args.get('name')
+        surname = request.args.get('surname')
+        email = request.args.get('email')
+        passw = request.args.get('password')
+
+
+        try:
+            db.session.add(User(login, name, surname, email, passw))
+            db.session.commit()
+        except Exception as e:
+            return e.message
+
+        return 'Everythings is ok!'
+    else:
+
+        return 'Something is wrong'
 
 
 @app.route('/parks', methods=['GET'])
@@ -88,12 +140,14 @@ class User(db.Model):
     name = db.Column(db.String(80))
     surname = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(30), unique=True)
 
-    def __init__(self, name, surname, loginu, email):
+    def __init__(self, name, surname, loginu, email, password):
         self.name = name
         self.email = email
         self.surname = surname
         self.loginu = loginu
+        self.password = password
 
     def __repr__(self):
         return '<Name %r %r> Email %r' % self.name, self.surname, self.email
