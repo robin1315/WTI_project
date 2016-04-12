@@ -3,7 +3,7 @@ import os
 from sqlalchemy.sql.functions import count
 from django.contrib.admin.templatetags.admin_list import results
 
-from flask import Flask, jsonify, abort, request, Response
+from flask import Flask, jsonify, abort, request, Response, g, flash
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import APIManager
@@ -135,9 +135,14 @@ def add_park():
         # #return 'ok'
         # #if newpark != None:
         # from app import Park
-        from app import db
+
+        #g.db.execute('insert into Park (na, str, strnr, ci) values (?, ?, ?, ?)', [name, street, street_nr, city])
+        #g.db.commit()
+        #flash('New entry was successfully posted')
+
         try:
             db.session.add(Park(name, street, street_nr, city))
+            g.db.commit()   
             db.session.commit()
         except Exception as e:
             app.logger.error(e.message)

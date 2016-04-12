@@ -30,10 +30,11 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62731874">
-              <caret line="140" column="31" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.7740303">
+              <caret line="144" column="28" selection-start-line="144" selection-start-column="28" selection-end-line="144" selection-end-column="28" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+                <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
               </folding>
             </state>
           </provider>
@@ -441,6 +442,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -467,6 +469,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -493,6 +496,7 @@
           <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -519,6 +523,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -537,6 +542,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -555,6 +561,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -565,6 +572,7 @@
           <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -595,10 +603,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62731874">
-          <caret line="140" column="31" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.7740303">
+          <caret line="144" column="28" selection-start-line="144" selection-start-column="28" selection-end-line="144" selection-end-column="28" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <marker date="1460462079736" expanded="true" signature="4015:4072" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
