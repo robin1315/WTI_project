@@ -152,6 +152,16 @@ class User(db.Model):
     def __repr__(self):
         return '<Name %r %r> Email %r' % self.name, self.surname, self.email
 
+    def as_dict(self):
+        obc_dict = {
+            'ID': self.id,
+            'Login': self.loginu
+            'Imie': self.name,
+            'Nazwisko': self.surname,
+            'amail': self.email,
+            'password': self.password
+        }
+        return obc_dict
 
 class Cars(db.Model):
     idcar = db.Column(db.Integer, primary_key=True, autoincrement=True)
