@@ -130,16 +130,6 @@ def add_park():
         street = request.args.get('street')
         street_nr = request.args.get('street_nr')
 
-        newpark = Park(name, street, street_nr, city)
-
-        # #return 'ok'
-        # #if newpark != None:
-        # from app import Park
-
-        #g.db.execute('insert into Park (na, str, strnr, ci) values (?, ?, ?, ?)', [name, street, street_nr, city])
-        #g.db.commit()
-        #flash('New entry was successfully posted')
-
         try:
 
             db.create_all()
@@ -149,10 +139,7 @@ def add_park():
         except Exception as e:
             return e.message
 
-        resp = Response(json.dumps(newpark.as_dict()), status=200, mimetype='application/json')
-        resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
-
-        return resp
+        return 'Everythings is ok!'
     else:
 
         return 'Something is wrong'
