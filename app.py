@@ -97,7 +97,7 @@ def parks():
         'hello':'world',
         'number':3
     }
-    list = [park.as_dict() for park in parks]
+    list = [park.as_dict() for park in parkss]
     js = json.dumps(list)
     resp = Response(js, status=200, mimetype='application/json')
     resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
