@@ -129,9 +129,10 @@ def add_park():
         city = request.args.get('city')
         street = request.args.get('street')
         street_nr = request.args.get('street_nr')
-        return 'ok'
+
         newpark = Park(name, street, street_nr, city)
 
+        return 'ok'
         if newpark != None:
             db.session.add(newpark)
             db.session.commit()
