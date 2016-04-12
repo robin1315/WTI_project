@@ -102,16 +102,24 @@ def parks():
     # result = [park.as_dict() for park in parks]
     return resp
 
-@app.route('/parks/<int:parkid>', methods=['GET'])
+@app.route('/parks/<int:parkid>', methods=['GET', 'POST', 'DELETE'])
 def park_id(parkid):
-    us = db.session.query(Park).filter_by(idpark = parkid).first()
 
-    if us == None:
-        return not_found()
+    if request.method == 'GET':
+        us = db.session.query(Park).filter_by(idpark = parkid).first()
+
+        if us == None:
+            return not_found()
+        else:
+            resp = Response(json.dumps(us.as_dict()), status=200, mimetype='application/json')
+            resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+            return resp
+    if request.method == 'POST':
+        return 'POST'
+    if request.method == 'DELETE':
+        return 'DELETE'
     else:
-        resp = Response(json.dumps(us.as_dict()), status=200, mimetype='application/json')
-        resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
-        return resp
+        return not_found()
 
 @app.errorhandler(404)
 def not_found(error=None):
