@@ -1,16 +1,9 @@
 import json
 import os
-from sqlalchemy.sql.functions import count
-from django.contrib.admin.templatetags.admin_list import results
 
 from flask import Flask, jsonify, abort, request, Response, g, flash
 from flask import render_template
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.restless import APIManager
 from models import *
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-db = SQLAlchemy(app)
 
 
 
