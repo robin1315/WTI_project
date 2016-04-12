@@ -136,11 +136,12 @@ def add_park():
         # #if newpark != None:
         # from app import Park
 
-        g.db.execute('insert into Park (na, str, strnr, ci) values (?, ?, ?, ?)', [name, street, street_nr, city])
-        g.db.commit()
+        #g.db.execute('insert into Park (na, str, strnr, ci) values (?, ?, ?, ?)', [name, street, street_nr, city])
+        #g.db.commit()
         #flash('New entry was successfully posted')
 
         try:
+            
             db.create_all()
             db.session.add(Park(name, street, street_nr, city))
             #g.db.commit()
