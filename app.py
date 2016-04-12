@@ -1,8 +1,9 @@
+import json
 import os
 from sqlalchemy.sql.functions import count
 from django.contrib.admin.templatetags.admin_list import results
 
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, Response
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import APIManager
@@ -94,7 +95,7 @@ def parks():
 
     parkss = Park.query.all()
     result = [park.as_dict() for park in parks]
-    return result
+    return Response(json.dumps(result),  mimetype='application/json')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
