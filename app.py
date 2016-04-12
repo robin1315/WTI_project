@@ -41,6 +41,14 @@ class Park(db.Model):
     street_nr = db.Column(db.Integer)
     city = db.Column(db.String(20))
 
+
+    def __init__(self, name, str, str_nr, ci):
+        self.name = name
+        self.street = str
+        self.street_nr = str_nr
+        self.city = ci
+
+
     def as_dict(self):
         obc_dict = {
             'ID':self.idpark,
