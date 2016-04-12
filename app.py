@@ -137,8 +137,10 @@ def add_park():
         # from app import Park
         # db.session.add(newpark)
         # db.session.commit()
+        resp = Response(json.dumps(newpark.as_dict()), status=200, mimetype='application/json')
+        resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
 
-        return newpark.as_dict()
+        return resp
     else:
 
         return 'Something is wrong'
