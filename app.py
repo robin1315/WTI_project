@@ -132,10 +132,10 @@ def add_park():
 
         newpark = Park(name, street, street_nr, city)
 
-        return 'ok'
-        if newpark != None:
-            db.session.add(newpark)
-            db.session.commit()
+        #return 'ok'
+        #if newpark != None:
+        db.session.add(newpark)
+        db.session.commit()
 
         return 'Add new Park'
     else:
