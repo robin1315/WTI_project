@@ -137,7 +137,7 @@ def add_park():
         # from app import Park
         from app import db
         try:
-            db.session.add(newpark)
+            db.session.add(Park(name, street, street_nr, city))
             db.session.commit()
         except Exception as e:
             app.logger.error(e.message)
