@@ -93,16 +93,34 @@ def home():
 @app.route('/parks', methods=['GET'])
 def parks():
     parkss = Park.query.all()
-    data = {
-        'hello':'world',
-        'number':3
-    }
+
     list = [park.as_dict() for park in parkss]
     js = json.dumps(list)
     resp = Response(js, status=200, mimetype='application/json')
     resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
 
     # result = [park.as_dict() for park in parks]
+    return resp
+
+@app.route('/parks/<int:parkid>', methods=['GET'])
+def park_id(parkid):
+    us = db.session.query(Park).filter_by(idpark = parkid).first()
+
+    if us == None:
+        return not_found()
+    else:
+        resp = Response(json.dumps(us.as_dict()), status=200, mimetype='application/json')
+        resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+        return resp
+
+@app.errorhandler(404)
+def not_found(error=None):
+    message = {
+        'status': 404,
+        'message': 'Not Found: ' + request.url,
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
     return resp
 
 if __name__ == '__main__':
