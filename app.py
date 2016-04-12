@@ -1,12 +1,9 @@
 import json
 import os
-from sqlalchemy.sql.functions import count
-from django.contrib.admin.templatetags.admin_list import results
 
-from flask import Flask, jsonify, abort, request, Response, g, flash
+from flask import Flask, jsonify, request, Response
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.restless import APIManager
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
@@ -28,8 +25,6 @@ def parks():
     js = json.dumps(list)
     resp = Response(js, status=200, mimetype='application/json')
     resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
-
-    # result = [park.as_dict() for park in parks]
     return resp
 
 
@@ -61,10 +56,7 @@ def add_park():
         street_nr = request.args.get('street_nr')
 
         try:
-
-            db.create_all()
             db.session.add(Park(name, street, street_nr, city))
-            #g.db.commit()
             db.session.commit()
         except Exception as e:
             return e.message
