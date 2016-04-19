@@ -155,7 +155,7 @@ class User(db.Model):
     def as_dict(self):
         obc_dict = {
             'ID': self.id,
-            'Login': self.loginu
+            'Login': self.loginu,
             'Imie': self.name,
             'Nazwisko': self.surname,
             'amail': self.email,
