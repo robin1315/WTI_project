@@ -71,24 +71,27 @@ def add_user():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    # if request.method == 'POST':
-    #     loginn = request.args.get('login')
-    #     passw = request.args.get('password')
-    #
-    #     us = db.session.query(User).filter_by(loginu = loginn)
-    #
-    #     if us == None:
-    #         us = db.session.query(User).filter_by(email= loginn)
-    #     if us == None:
-    #         return "False"
-    #
-    #     us_dict = us.as_dict()
-    #
-    #     if us_dict.get('password') == passw:
-    #         return "True"
-    # else:
-    #     return "Not POST"
-    return "True"
+    if request.method == 'POST':
+        loginn = request.args.get('login')
+        passw = request.args.get('password')
+
+        us = db.session.query(User).filter_by(loginu = loginn)
+
+        if us == None:
+            us = db.session.query(User).filter_by(email= loginn)
+        if us == None:
+            return "False"
+
+        us_dict = us.as_dict()
+    
+        if us_dict.get('password') == passw:
+            return "True"
+    if request.method == 'GET':
+        return "false"
+
+    else:
+        return "Not POST"
+
 
 @app.route('/parks', methods=['GET'])
 def parks():
