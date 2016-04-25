@@ -75,15 +75,15 @@ def login():
         loginn = request.args.get('login')
         passw = request.args.get('password')
 
-        us = db.session.query(User).filter_by(loginu = loginn)
+        us = db.session.query(User).filter_by(loginu=loginn).first()
 
         if us == None:
-            us = db.session.query(User).filter_by(email= loginn)
+            us = db.session.query(User).filter_by(email=loginn).first()
         if us == None:
             return "False"
 
         us_dict = us.as_dict()
-    
+
         if us_dict.get('password') == passw:
             return "True"
     if request.method == 'GET':
