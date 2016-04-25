@@ -71,24 +71,24 @@ def add_user():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST':
-        loginn = request.args.get('login')
-        passw = request.args.get('password')
-
-        us = db.session.query(User).filter_by(loginu = loginn)
-
-        if us == None:
-            us = db.session.query(User).filter_by(email= loginn)
-        if us == None:
-            return "False"
-
-        us_dict = us.as_dict()
-
-        if us_dict.get('password') == passw:
-            return "True"
-    else:
-        return "Not POST"
-
+    # if request.method == 'POST':
+    #     loginn = request.args.get('login')
+    #     passw = request.args.get('password')
+    #
+    #     us = db.session.query(User).filter_by(loginu = loginn)
+    #
+    #     if us == None:
+    #         us = db.session.query(User).filter_by(email= loginn)
+    #     if us == None:
+    #         return "False"
+    #
+    #     us_dict = us.as_dict()
+    #
+    #     if us_dict.get('password') == passw:
+    #         return "True"
+    # else:
+    #     return "Not POST"
+    return "True"
 
 @app.route('/parks', methods=['GET'])
 def parks():
@@ -193,7 +193,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(30), unique=True)
 
-    def __init__(self, name, surname, loginu, email, password):
+    def __init__(self, loginu, name, surname, email, password):
         self.name = name
         self.email = email
         self.surname = surname
@@ -209,7 +209,7 @@ class User(db.Model):
             'Login': self.loginu,
             'Imie': self.name,
             'Nazwisko': self.surname,
-            'amail': self.email,
+            'email': self.email,
             'password': self.password
         }
         return obc_dict
