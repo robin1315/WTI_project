@@ -69,6 +69,25 @@ def add_user():
         return 'Something is wrong'
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        login = request.args.get('login')
+        passw = request.args.get('password')
+
+        us = db.session.query(User).filter_by(login = login)
+
+        if us == None:
+            us = db.session.query(User).filter_by(email= login)
+        if us == None:
+            return "False"
+
+        us_dict = us.as_dict()
+
+        if us_dict.get('password') == passw:
+            return "True"
+
+
 @app.route('/parks', methods=['GET'])
 def parks():
     parkss = Park.query.all()
