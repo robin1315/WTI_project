@@ -72,7 +72,6 @@ def add_user():
 @app.route('/parks', methods=['GET'])
 def parks():
     parkss = Park.query.all()
-
     list = [park.as_dict() for park in parkss]
     js = json.dumps(list)
     resp = Response(js, status=200, mimetype='application/json')
@@ -99,6 +98,35 @@ def park_id(parkid):
         return not_found()
 
 
+@app.route('/parks_wsp', methods=['GET'])
+def parks():
+    parkss = Park.query.all()
+    list = [park.as_dict_wsp() for park in parkss]
+    js = json.dumps(list)
+    resp = Response(js, status=200, mimetype='application/json')
+    resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+    return resp
+
+
+@app.route('/parks_wsp/<int:parkid>', methods=['GET', 'POST', 'DELETE'])
+def park_id(parkid):
+    if request.method == 'GET':
+        us = db.session.query(Park).filter_by(idpark=parkid).first()
+
+        if us == None:
+            return not_found()
+        else:
+            resp = Response(json.dumps(us.as_dict_wsp()), status=200, mimetype='application/json')
+            resp.headers['Link'] = 'https://polar-plains-14145.herokuapp.com'
+            return resp
+    if request.method == 'POST':
+        return 'POST'
+    if request.method == 'DELETE':
+        return 'DELETE'
+    else:
+        return not_found()
+
+
 @app.route('/parks/add', methods=['POST'])
 def add_park():
     if request.method == 'POST':
@@ -106,9 +134,11 @@ def add_park():
         city = request.args.get('city')
         street = request.args.get('street')
         street_nr = request.args.get('street_nr')
+        wspX = request.args.get('wspX')
+        wspY = request.args.get('wspY')
 
         try:
-            db.session.add(Park(name, street, street_nr, city))
+            db.session.add(Park(name, street, street_nr, city, wspX, wspY))
             db.session.commit()
         except Exception as e:
             return e.message
@@ -176,12 +206,16 @@ class Park(db.Model):
     street = db.Column(db.String(30))
     street_nr = db.Column(db.Integer)
     city = db.Column(db.String(20))
+    wspX = db.Column(db.DECIMAL)
+    wspY = db.Column(db.DECIMAL)
 
-    def __init__(self, name, str, str_nr, ci):
+    def __init__(self, name, str, str_nr, ci, wspX, wspY):
         self.name = name
         self.street = str
         self.street_nr = str_nr
         self.city = ci
+        self.wspX = wspX
+        self.wspY = wspY
 
     def as_dict(self):
         obc_dict = {
@@ -189,11 +223,19 @@ class Park(db.Model):
             'Nazwa': self.name,
             'Ulica': self.street,
             'Nr_ulicy': self.street_nr,
-            'Miasto': self.city
+            'Miasto': self.city,
+            'Wspoólrzêdna X': self.wspX,
+            'Wspó³rzêdna Y': self.wspY
         }
         return obc_dict
 
-
+    def as_dict_wsp(self):
+        obc_dict = {
+            'ID': self.idpark,
+            'X': self.wspX,
+            'Y': self.wspY
+        }
+        return obc_dict
 
 
 if __name__ == '__main__':
