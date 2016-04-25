@@ -72,13 +72,13 @@ def add_user():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        login = request.args.get('login')
+        loginn = request.args.get('login')
         passw = request.args.get('password')
 
-        us = db.session.query(User).filter_by(login = login)
+        us = db.session.query(User).filter_by(loginu = loginn)
 
         if us == None:
-            us = db.session.query(User).filter_by(email= login)
+            us = db.session.query(User).filter_by(email= loginn)
         if us == None:
             return "False"
 
