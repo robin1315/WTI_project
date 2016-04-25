@@ -206,8 +206,8 @@ class Park(db.Model):
     street = db.Column(db.String(30))
     street_nr = db.Column(db.Integer)
     city = db.Column(db.String(20))
-    wspX = db.Column(db.DECIMAL)
-    wspY = db.Column(db.DECIMAL)
+    wspX = db.Column(db.FLOAT(precision=8))
+    wspY = db.Column(db.FLOAT(precision=8))
 
     def __init__(self, name, stri, str_nr, ci, wspX, wspY):
         self.name = name
