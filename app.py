@@ -209,9 +209,9 @@ class Park(db.Model):
     wspX = db.Column(db.DECIMAL)
     wspY = db.Column(db.DECIMAL)
 
-    def __init__(self, name, str, str_nr, ci, wspX, wspY):
+    def __init__(self, name, stri, str_nr, ci, wspX, wspY):
         self.name = name
-        self.street = str
+        self.street = stri
         self.street_nr = str_nr
         self.city = ci
         self.wspX = wspX
