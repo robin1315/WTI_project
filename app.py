@@ -224,8 +224,8 @@ class Park(db.Model):
             'Ulica': self.street,
             'Nr_ulicy': self.street_nr,
             'Miasto': self.city,
-            'Wspoólrzêdna X': self.wspX,
-            'Wspó³rzêdna Y': self.wspY
+            'Wspolrzedna X': self.wspX,
+            'Wspolrzedna Y': self.wspY
         }
         return obc_dict
 
