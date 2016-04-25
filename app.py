@@ -47,7 +47,7 @@ def user_id(userid):
         return not_found()
 
 
-@app.route('/users/add', methods=['POST'])
+@app.route('/users/add', methods=['POST', 'GET'])
 def add_user():
     if request.method == 'POST':
         login = request.args.get('login')
