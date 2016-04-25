@@ -99,7 +99,7 @@ def park_id(parkid):
 
 
 @app.route('/parks_wsp', methods=['GET'])
-def parks():
+def parks_wsp():
     parkss = Park.query.all()
     list = [park.as_dict_wsp() for park in parkss]
     js = json.dumps(list)
@@ -109,7 +109,7 @@ def parks():
 
 
 @app.route('/parks_wsp/<int:parkid>', methods=['GET', 'POST', 'DELETE'])
-def park_id(parkid):
+def park_id_wsp(parkid):
     if request.method == 'GET':
         us = db.session.query(Park).filter_by(idpark=parkid).first()
 
