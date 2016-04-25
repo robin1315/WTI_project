@@ -80,7 +80,7 @@ def login():
         if us == None:
             us = db.session.query(User).filter_by(email=loginn).first()
         if us == None:
-            return "False"
+            return "false"
 
         us_dict = us.as_dict()
 
@@ -90,7 +90,7 @@ def login():
         return "false"
 
     else:
-        return "Not POST"
+        return "false"
 
 
 @app.route('/parks', methods=['GET'])
