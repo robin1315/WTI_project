@@ -86,6 +86,8 @@ def login():
 
         if us_dict.get('password') == passw:
             return "True"
+    else:
+        return "Not POST"
 
 
 @app.route('/parks', methods=['GET'])
