@@ -52,7 +52,7 @@ def user_id(userid):
 @app.route('/users/add', methods=['POST'])
 def add_user():
     if request.method == 'POST':
-        login = request.args.get('login').decode('utf-8')
+        login = request.args.get('login')
         name = request.args.get('name')
         surname = request.args.get('surname')
         email = request.args.get('email')
