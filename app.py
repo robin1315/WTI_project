@@ -1,3 +1,5 @@
+# _*_ coding: utf-8 _*_
+
 import json
 import os
 
@@ -50,7 +52,7 @@ def user_id(userid):
 @app.route('/users/add', methods=['POST'])
 def add_user():
     if request.method == 'POST':
-        login = request.args.get('login')
+        login = request.args.get('login').decode('utf-8')
         name = request.args.get('name')
         surname = request.args.get('surname')
         email = request.args.get('email')
