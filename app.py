@@ -2,6 +2,7 @@
 
 import json
 import os
+import datetime
 
 from flask import Flask, jsonify, request, Response
 from flask import render_template
@@ -87,7 +88,7 @@ def login():
         us_dict = us.as_dict()
 
         if us_dict.get('password') == passw:
-            return "True"
+            return Response(us_dict.get("ID"), status=200, mimetype='text/plain')
     if request.method == 'GET':
         return "false"
 
@@ -175,6 +176,30 @@ def add_park():
         return 'Something is wrong'
 
 
+@app.route('/reservation/add', methods=['POST'])
+def add_reservation():
+    if request.method == 'POST':
+        IdPlace = request.args.get('idplace')
+        NrRegistration = request.args.get('nrregister')
+        IdUser = request.args.get('iduser')
+        #DateReservation = request.args.get('')
+        ReservationFrom = request.args.get('from')
+        ReservationTo = request.args.get('to')
+        #todo generowanie kodu dostepu, kodu qr
+        AccessCode = 'jakiskoddostepu'
+        QRCode = 'qrkodjakis'
+        #Busy = db.Column(db.Boolean, default=db.false)
+
+        try:
+            db.session.add(Allocation(IdPlace, NrRegistration, IdUser, ReservationFrom, ReservationTo, AccessCode, QRCode))
+            db.session.commit()
+        except Exception as e:
+            return e.message
+
+        return "Everythings is ok!"
+    else:
+        return 'NOT POST'
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -227,6 +252,7 @@ class Cars(db.Model):
 
 
 class Park(db.Model):
+    #todo poprawic precyzjae wsp
     idpark = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(40))
     street = db.Column(db.String(30))
@@ -260,6 +286,69 @@ class Park(db.Model):
             'ID': self.idpark,
             'X': self.wspX,
             'Y': self.wspY
+        }
+        return obc_dict
+
+
+class Allocation(db.Model):
+    #todo pomyslec jak rozwiazac przechowywanie obrazow w bazie
+    Id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    IdPlace = db.Column(db.Integer, db.ForeignKey('place.Id'))
+    NrRegistration = db.Column(db.String(9))
+    IdUser = db.Column(db.Integer, db.ForeignKey('user.id'))
+    DateReservation = db.Column(db.DATETIME, default=datetime.datetime.utcnow)
+    ReservationFrom = db.Column(db.DATETIME)
+    ReservationTo = db.Column(db.DATETIME)
+    AccessCode = db.Column(db.String)
+    QRCode = db.Column(db.String)
+    Busy = db.Column(db.Boolean, default=db.false)
+
+    def __init__(self, idplace, nrreg, idus, resfrom, resto , access, qrcode ):
+        self.IdPlace = idplace
+        self.NrRegistration = nrreg
+        self.IdUser = idus
+        self.ReservationFrom = resfrom
+        self.ReservationTo = resto
+        self.AccessCode =access
+        self.QRCode = qrcode
+
+    def as_dict(self):
+        obc_dict = {
+            'ID': self.Id,
+            'ID miejsca': self.IdPlace,
+            'Numer rejestracji': self.NrRegistration,
+            'ID Użytkownika': self.IdUser,
+            'Data reserwacji': self.DateReservation,
+            'Od': self.ReservationFrom,
+            'Do': self.ReservationTo,
+            'Kod dostepu': self.AccessCode,
+            'QR kod': self.QRCode,
+            'Zajete': self.Busy
+        }
+        return obc_dict
+
+
+class Place(db.Model):
+
+    Id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    IdPark = db.Column(db.Integer, db.ForeignKey('park.idpark'))
+    NrPlace = db.Column(db.Integer)
+    WspX = db.Column(db.FLOAT(precision=8) )
+    WspY = db.Column(db.FLOAT(precision=8))
+
+    def __init__(self, idpark, nrpl, wspx, wspy):
+        self.IdPark = idpark
+        self.NrPlace = nrpl
+        self.WspX = wspx
+        self.WspY = wspy
+
+    def as_dict(self):
+        obc_dict = {
+            'ID': self.Id,
+            'ID Parkingu': self.IdPark,
+            'Numer miejsca': self.NrPlace,
+            'WspX': self.WspX,
+            'WspY': self.WspY
         }
         return obc_dict
 
